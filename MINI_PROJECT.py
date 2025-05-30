@@ -136,3 +136,17 @@ class SecondPage:
             self.canvas.create_text(w * 0.5, h * 0.25, text=text, font=font_style, fill="white", anchor="center")
 
             self.button_window = self.canvas.create_window(w - 20, 20, window=self.button_frame, anchor="ne")
+    def on_resize(self, event):
+        self.update_background()
+
+    def next_page(self):
+        self.canvas.destroy()
+        self.button_frame.destroy()
+    
+    def before_page(self):
+        self.canvas.destroy()
+        self.button_frame.destroy()
+        WelcomePage(self.root)
+
+    def exit_app(self):
+        self.root.destroy()
