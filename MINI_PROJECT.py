@@ -150,3 +150,8 @@ class SecondPage:
 
     def exit_app(self):
         self.root.destroy()
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = WelcomePage(root)
+    root.mainloop()
