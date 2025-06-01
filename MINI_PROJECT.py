@@ -57,8 +57,9 @@ class WelcomePage:
         self.update_background()
 
     def next_page(self):
-        self.canvas.destroy()
-        self.button_frame.destroy()
+        self.canvas.pack_forget()
+        self.button_frame.pack_forget()
+        self.root.unbind("<Configure>")
         SecondPage(self.root)
 
     def exit_app(self):
@@ -140,12 +141,15 @@ class SecondPage:
         self.update_background()
 
     def next_page(self):
-        self.canvas.destroy()
-        self.button_frame.destroy()
+        self.canvas.pack_forget()
+        self.button_frame.pack_forget()
+        self.root.unbind("<Configure>")
+        print("Next page belum dibuat.")
     
     def before_page(self):
-        self.canvas.destroy()
-        self.button_frame.destroy()
+        self.canvas.pack_forget()
+        self.button_frame.pack_forget()
+        self.root.unbind("<Configure>")
         WelcomePage(self.root)
 
     def exit_app(self):
