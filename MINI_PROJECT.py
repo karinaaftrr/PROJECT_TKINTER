@@ -160,7 +160,7 @@ class SecondPage:
         self.root.destroy()
         
 class ThirdPage:
-    def __init__(self, root):
+    def _init_(self, root):
         self.root = root
         self.root.title("Third Page")
         self.root.state("zoomed")
@@ -172,20 +172,19 @@ class ThirdPage:
         self.bg_photo = None
         self.logo_photo = None
 
-        self.frame_kanan = tk.Frame(self.root, bg="#111")
-        self.frame_kanan.place(relx=0.6, rely=0.35, anchor="w")
-
         self.score_kanan = 0
-        self.setup_score_section_kanan(self.frame_kanan)
-
-        self.frame_kiri = tk.Frame(self.root, bg="#111")
-        self.frame_kiri.place(relx=0.15, rely=0.35, anchor="e")
-
         self.score_kiri = 0
+
+        self.frame_kanan = tk.Frame(self.root, bg="#06075C")
+        self.frame_kiri = tk.Frame(self.root, bg="#FF0000")
+
+        self.setup_score_section_kanan(self.frame_kanan)
         self.setup_score_section_kiri(self.frame_kiri)
 
-        self.button_frame = tk.Frame(self.root, bg="#06075C", bd=0)
+        self.frame_kanan.place(relx=0.6, rely=0.35, anchor="center")
+        self.frame_kiri.place(relx=0.15, rely=0.35, anchor="center")
 
+        self.button_frame = tk.Frame(self.root, bg="#06075C", bd=0)
         self.back_button = tk.Button(
             self.button_frame, text="BACK", font=("Segoe UI", 12, "bold"),
             bg="#767b21", fg="white", width=10, command=self.before_page
