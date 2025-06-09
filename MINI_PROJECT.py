@@ -232,6 +232,14 @@ class ThirdPage:
         self.score_kanan = max(0, self.score_kanan - 1)
         self.label_score_kanan.config(text=str(self.score_kanan))
 
+    def increase_score_kiri(self):
+        self.score_kiri += 1
+        self.label_score_kiri.config(text=str(self.score_kiri))
+
+    def decrease_score_kiri(self):
+        self.score_kiri = max(0, self.score_kiri - 1)
+        self.label_score_kiri.config(text=str(self.score_kiri))
+        
 if __name__ == "__main__":
     root = tk.Tk()
     app = WelcomePage(root)
