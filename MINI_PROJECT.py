@@ -114,19 +114,23 @@ class SecondPage:
 
             rama_image = Image.open("rama praditha.jpg").resize((100,150), Image.LANCZOS)
             self.rama_photo = ImageTk.PhotoImage(rama_image) 
-            self.canvas.create_image(350, 200, image=self.rama_photo, anchor="nw")
+            self.canvas.create_image(350, 230, image=self.rama_photo, anchor="nw")
+            self.canvas.create_text(400, 400, text="Rama Praditha R.\n2417051039", font=("Segoe UI", 10, "bold"), fill="white", anchor="n")
 
             reggy_image = Image.open("reggy2.jpg").resize((100,150), Image.LANCZOS)
             self.reggy_photo = ImageTk.PhotoImage(reggy_image) 
-            self.canvas.create_image(500, 200, image=self.reggy_photo, anchor="nw")
+            self.canvas.create_image(540, 230, image=self.reggy_photo, anchor="nw")
+            self.canvas.create_text(600, 400, text="Reggy Desvita Kamal\n2417051016", font=("Segoe UI", 10, "bold"), fill="white", anchor="n")
 
             karina_image = Image.open("karina3.jpg").resize((100,150), Image.LANCZOS)
             self.karina_photo = ImageTk.PhotoImage(karina_image) 
-            self.canvas.create_image(650, 200, image=self.karina_photo, anchor="nw")
+            self.canvas.create_image(720, 230, image=self.karina_photo, anchor="nw")
+            self.canvas.create_text(770, 400, text="Karina Fitriamalia\n2417051014", font=("Segoe UI", 10, "bold"), fill="white", anchor="n")
 
             ikbal_image = Image.open("ikbal.jpg").resize((100,150), Image.LANCZOS)
             self.ikbal_photo = ImageTk.PhotoImage(ikbal_image) 
-            self.canvas.create_image(800, 200, image=self.ikbal_photo, anchor="nw")
+            self.canvas.create_image(900, 230, image=self.ikbal_photo, anchor="nw")
+            self.canvas.create_text(950, 400, text="Ikbal Feri Amanda\n2417051031", font=("Segoe UI", 10, "bold"), fill="white", anchor="n")
 
             text = " ".join("Our Team!")
             font_style = ("Impact", 44, "bold")
