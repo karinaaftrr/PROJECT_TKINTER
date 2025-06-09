@@ -239,6 +239,29 @@ class ThirdPage:
     def decrease_score_kiri(self):
         self.score_kiri = max(0, self.score_kiri - 1)
         self.label_score_kiri.config(text=str(self.score_kiri))
+    def update_background(self):
+        w = self.root.winfo_width()
+        h = self.root.winfo_height()
+        if w > 1 and h > 1:
+            resized = self.original_image.resize((w, h), Image.LANCZOS)
+            self.bg_photo = ImageTk.PhotoImage(resized)
+            self.canvas.delete("all")
+            self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
+            self.button_window = self.canvas.create_window(w - 20, 20, window=self.button_frame, anchor="ne")
+
+    def on_resize(self, event):
+        self.update_background()
+
+    def before_page(self):
+        self.canvas.pack_forget()
+        self.button_frame.pack_forget()
+        self.frame_kanan.destroy()
+        self.frame_kiri.destroy()
+        self.root.unbind("<Configure>")
+        SecondPage(self.root) 
+
+    def exit_app(self):
+        self.root.destroy()
         
 if __name__ == "__main__":
     root = tk.Tk()
