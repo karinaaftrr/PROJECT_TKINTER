@@ -224,6 +224,13 @@ class ThirdPage:
         tk.Button(button_frame, text="-1", font=("Helvetica", 18, "bold"),
                   bg="blue", fg="white", width=4, height=2,
                   command=self.decrease_score_kiri).pack(side="left", padx=5)
+    def increase_score_kanan(self):
+        self.score_kanan += 1
+        self.label_score_kanan.config(text=str(self.score_kanan))
+
+    def decrease_score_kanan(self):
+        self.score_kanan = max(0, self.score_kanan - 1)
+        self.label_score_kanan.config(text=str(self.score_kanan))
 
 if __name__ == "__main__":
     root = tk.Tk()
