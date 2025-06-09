@@ -197,6 +197,20 @@ class ThirdPage:
         self.update_background()
         self.root.bind("<Configure>", self.on_resize)
 
+    def setup_score_section_kanan(self, frame):
+        self.label_score_kanan = tk.Label(frame, text="0", font=("Helvetica", 20), fg="white", bg="#06075C")
+        self.label_score_kanan.pack(pady=10)
+
+        button_frame = tk.Frame(frame, bg="#06075C")
+        button_frame.pack(pady=10)
+
+        tk.Button(button_frame, text="+1", font=("Helvetica", 18, "bold"),
+                  bg="green", fg="white", width=4, height=2,
+                  command=self.increase_score_kanan).pack(side="left", padx=5)
+        tk.Button(button_frame, text="-1", font=("Helvetica", 18, "bold"),
+                  bg="blue", fg="white", width=4, height=2,
+                  command=self.decrease_score_kanan).pack(side="left", padx=5)
+
 
 if __name__ == "__main__":
     root = tk.Tk()
