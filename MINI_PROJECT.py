@@ -210,7 +210,20 @@ class ThirdPage:
         tk.Button(button_frame, text="-1", font=("Helvetica", 18, "bold"),
                   bg="blue", fg="white", width=4, height=2,
                   command=self.decrease_score_kanan).pack(side="left", padx=5)
+    
+    def setup_score_section_kiri(self, frame):
+        self.label_score_kiri = tk.Label(frame, text="0", font=("Helvetica", 20), fg="white", bg="#FF0000")
+        self.label_score_kiri.pack(pady=10)
 
+        button_frame = tk.Frame(frame, bg="#FF0000")
+        button_frame.pack(pady=10)
+
+        tk.Button(button_frame, text="+1", font=("Helvetica", 18, "bold"),
+                  bg="green", fg="white", width=4, height=2,
+                  command=self.increase_score_kiri).pack(side="left", padx=5)
+        tk.Button(button_frame, text="-1", font=("Helvetica", 18, "bold"),
+                  bg="blue", fg="white", width=4, height=2,
+                  command=self.decrease_score_kiri).pack(side="left", padx=5)
 
 if __name__ == "__main__":
     root = tk.Tk()
