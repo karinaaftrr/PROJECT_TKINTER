@@ -105,7 +105,25 @@ class SecondPage:
         self.update_background()
         self.root.bind("<Configure>", self.on_resize)
 
+    def on_resize(self, event):
+        if self.resize_job:
+            self.root.after_cancel(self.resize_job)
+        self.resize_job = self.root.after(200, self.update_background)
 
+    def next_page(self):
+        self.canvas.pack_forget()
+        self.button_frame.pack_forget()
+        self.root.unbind("<Configure>")
+        ThirdPage(self.root)
+    
+    def before_page(self):
+        self.canvas.pack_forget()
+        self.button_frame.pack_forget()
+        self.root.unbind("<Configure>")
+        WelcomePage(self.root)
+
+    def exit_app(self):
+        self.root.destroy()
         
 class ThirdPage:
     def __init__(self, root):
