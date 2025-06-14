@@ -261,6 +261,80 @@ class ThirdPage:
         self.setup_score_section_kanan(self.frame_kanan)
         self.frame_kiri.place(relx=0.12, rely=0.5, anchor="center")
         self.frame_kanan.place(relx=0.65, rely=0.5, anchor="center")
+
+   self.button_frame = tk.Frame(self.root, bg="#06075C", bd=0)
+        self.back_button = tk.Button(self.button_frame, text="BACK", font=("Segoe UI", 12, "bold"), bg="#767b21", fg="white", width=10, command=self.before_page)
+        self.exit_button = tk.Button(self.button_frame, text="EXIT", font=("Segoe UI", 12, "bold"), bg="#dc3545", fg="white", width=10, command=self.exit_app)
+        self.back_button.pack(side="left", padx=5)
+        self.exit_button.pack(side="left", padx=5)
+
+        self.button_window = None
+        self.update_background()
+        self.root.bind("<Configure>", self.on_resize)
+
+    def set_judges(self, count):
+        self.judges_count = count
+        for btn in self.judges_buttons:
+            btn.destroy()
+        self.judges_buttons.clear()
+        selected_btn = tk.Button(self.judges_frame, text=f"{count} Judge{'s' if count > 1 else ''}", font=("Segoe UI", 12, "bold"), bg="blue", fg="white", command=self.reset_judges_selection)
+        selected_btn.pack(side="left", padx=5)
+        self.judges_buttons.append(selected_btn)
+
+    def reset_judges_selection(self):
+        for btn in self.judges_buttons:
+            btn.destroy()
+        self.judges_buttons.clear()
+        for i in range(1, 6):
+            btn = tk.Button(self.judges_frame, text=str(i), width=3, font=("Segoe UI", 12, "bold"), bg="gray", fg="white", command=lambda x=i: self.set_judges(x))
+            btn.pack(side="left", padx=2)
+            self.judges_buttons.append(btn)
+
+    def setup_score_section_kiri(self, frame):
+        self.label_score_kiri = tk.Label(frame, text="0", font=("Montserrat", 50, "bold"), fg="white", bg="#FF0000")
+        self.label_score_kiri.pack(pady=30)
+        button_frame = tk.Frame(frame, bg="#FF0000")
+        button_frame.pack(pady=2)
+        tk.Button(button_frame, text="+1", font=("Montserrat", 18, "bold"), bg="green", fg="white", width=4, height=2, command=self.increase_score_kiri).pack(side="left", padx=5)
+        tk.Button(button_frame, text="-1", font=("Montserrat", 18, "bold"), bg="blue", fg="white", width=4, height=2, command=self.decrease_score_kiri).pack(side="left", padx=5)
+
+    def setup_score_section_kanan(self, frame):
+        self.label_score_kanan = tk.Label(frame, text="0", font=("Montserrat", 50, "bold"), fg="white", bg="#06075C")
+        self.label_score_kanan.pack(pady=30)
+        button_frame = tk.Frame(frame, bg="#06075C")
+        button_frame.pack(pady=2)
+        tk.Button(button_frame, text="+1", font=("Montserrat", 18, "bold"), bg="green", fg="white", width=4, height=2, command=self.increase_score_kanan).pack(side="left", padx=5)
+        tk.Button(button_frame, text="-1", font=("Montserrat", 18, "bold"), bg="blue", fg="white", width=4, height=2, command=self.decrease_score_kanan).pack(side="left", padx=5)
+
+    def setup_function_buttons(self):
+        self.func_button_frame = tk.Frame(self.root, bg="#867E7E")  
+        self.func_button_frame.pack(side="bottom", fill="x")
+        buttons = [
+        ("Show/Hide\nStopwatch", "gray", self.toggle_timer_visibility),
+        ("Shikkaku", "red", self.shikkaku_kiri),
+        ("Kikken", "red", self.kikken_kiri),
+        ("Shikkaku", "blue", self.shikkaku_kanan),
+        ("Kikken", "blue", self.kikken_kanan),
+        ("Done", "orange", self.done),
+        ("Reset", "red", self.reset_scores),
+        ]
+        for text, color, command in buttons:
+            btn = tk.Button(self.func_button_frame, text=text, font=("Segoe UI", 10, "bold"), bg=color, fg="white", command=command)
+            btn.pack(side="left", fill="x", expand=True, padx=1, pady=3)
+
+
+    def setup_timer_frames(self):
+        self.timer_frame_kiri = tk.Frame(self.root, bg="#FF0000")
+        start_btn = tk.Button(self.timer_frame_kiri, text="Start", font=("Segoe UI", 20, "bold"), bg="green", fg="white", command=self.start_both_timers)
+        start_btn.pack(side="left", padx=10)
+        self.timer_label_kiri = tk.Label(self.timer_frame_kiri, text="00:00", font=("Montserrat", 40, "bold"), fg="white", bg="#FF0000")
+        self.timer_label_kiri.pack(side="left", padx=10)
+        self.timer_frame_kiri.place(relx=0.3, rely=0.8, anchor="center")
+
+        self.timer_frame_kanan = tk.Frame(self.root, bg="#06075C")
+        self.timer_label_kanan = tk.Label(self.timer_frame_kanan, text="00:00", font=("Montserrat", 40, "bold"), fg="white", bg="#06075C")
+        self.timer_label_kanan.pack(side="left", padx=10)
+        self.timer_frame_kanan.place(relx=0.8, rely=0.8, anchor="center")
         
 def done(self):
         self.is_running_kiri = False
