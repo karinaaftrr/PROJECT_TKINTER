@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk, ImageFile
 
-
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class WelcomePage:
