@@ -352,7 +352,7 @@ def done(self):
         self.destroyed = True
         self.root.destroy()
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     root = tk.Tk()
     app = WelcomePage(root)
     root.mainloop()
