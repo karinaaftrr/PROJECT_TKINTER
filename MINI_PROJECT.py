@@ -296,6 +296,78 @@ class ThirdPage:
 
     def exit_app(self):
         self.root.destroy()
+
+class ThirdPage:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Third Page")
+        self.root.state("zoomed")
+        self.destroyed = False
+        self.resize_job = None
+
+        self.header_height = 120
+        self.header_frame = tk.Frame(self.root, bg="black", height=self.header_height)
+        self.header_frame.pack(side="top", fill="x")
+
+        division_frame = tk.Frame(self.header_frame, bg="black")
+        division_frame.place(relx=0.5, y=10, anchor="n")
+        division_label = tk.Label(division_frame, text="Division", fg="white", bg="black", font=("Segoe UI", 14, "bold"))
+        division_label.pack(side="left", padx=(0, 10))
+        self.division_var = tk.StringVar()
+        self.division_dropdown = ttk.Combobox(division_frame, textvariable=self.division_var, values=["Putra", "Putri"], state="readonly", width=20, font=("Segoe UI", 11))
+        self.division_dropdown.set("Putra")
+        self.division_dropdown.pack(side="left")
+
+        ao_label = tk.Label(self.header_frame, text="Ao", fg="red", bg="black", font=("Segoe UI", 16, "bold"))
+        ao_label.place(relx=0.02, rely=0.3)
+        self.ao_entry = tk.Entry(self.header_frame, width=20, font=("Segoe UI", 12))
+        self.ao_entry.place(relx=0.08, rely=0.35)
+
+        aka_label = tk.Label(self.header_frame, text="Aka", fg="blue", bg="black", font=("Segoe UI", 16, "bold"))
+        aka_label.place(relx=0.5, rely=0.3)
+        self.aka_entry = tk.Entry(self.header_frame, width=20, font=("Segoe UI", 12))
+        self.aka_entry.place(relx=0.56, rely=0.35)
+
+        self.judges_frame = tk.Frame(self.header_frame, bg="black")
+        self.judges_frame.place(relx=0.5, rely=0.6, anchor="n")
+        self.judges_buttons = []
+        self.judges_count = 0
+        self.reset_judges_selection()
+
+        self.names = []
+        self.ao_dropdown_var = tk.StringVar()
+        self.aka_dropdown_var = tk.StringVar()
+        self.ao_dropdown = ttk.Combobox(textvariable=self.ao_dropdown_var, font=("Segoe UI", 14, "bold"), state="readonly")
+        self.aka_dropdown = ttk.Combobox(textvariable=self.aka_dropdown_var, font=("Segoe UI", 14, "bold"), state="readonly")
+        self.ao_dropdown.place(relx=0.8, rely=0.12, anchor="center")
+        self.aka_dropdown.place(relx=0.12, rely=0.12, anchor="center")
+
+        self.canvas = tk.Canvas(self.root, highlightthickness=0)
+        self.canvas.pack(fill="both", expand=True)
+
+        try:
+            self.original_image = Image.open("asset/Bendera.png")
+        except FileNotFoundError:
+            self.original_image = Image.new("RGB", (800, 600), "gray")
+        self.bg_photo = None
+
+        self.score_kanan = 0
+        self.score_kiri = 0
+        self.seconds_elapsed_kiri = 0
+        self.is_running_kiri = False
+        self.seconds_elapsed_kanan = 0
+        self.is_running_kanan = False
+        self.timer_visible = True
+        self.status_kiri = ""
+        self.status_kanan = ""
+        self.hasil_pertandingan = []
+
+        self.frame_kanan = tk.Frame(self.root, bg="#06075C")
+        self.frame_kiri = tk.Frame(self.root, bg="#FF0000")
+        self.setup_score_section_kiri(self.frame_kiri)
+        self.setup_score_section_kanan(self.frame_kanan)
+        self.frame_kiri.place(relx=0.12, rely=0.5, anchor="center")
+        self.frame_kanan.place(relx=0.65, rely=0.5, anchor="center")
         
 def done(self):
         self.is_running_kiri = False
