@@ -18,5 +18,6 @@ Ui Unggulan
    Skor Peserta
    Status Pertandingan (diskualifikasi, menyerah, dan skor)
    Rekap Pertandingan (hasil_pertandinga.txt)
+   Input Judges 1-5
 
    Perwarnaan untuk tombol mencolok dan intuitif
