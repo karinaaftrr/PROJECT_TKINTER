@@ -180,7 +180,7 @@ class ThirdPage:
         self.frame_kiri.place(relx=0.12, rely=0.5, anchor="center")
         self.frame_kanan.place(relx=0.65, rely=0.5, anchor="center")
 
-   self.button_frame = tk.Frame(self.root, bg="#06075C", bd=0)
+        self.button_frame = tk.Frame(self.root, bg="#06075C", bd=0)
         self.back_button = tk.Button(self.button_frame, text="BACK", font=("Segoe UI", 12, "bold"), bg="#767b21", fg="white", width=10, command=self.before_page)
         self.exit_button = tk.Button(self.button_frame, text="EXIT", font=("Segoe UI", 12, "bold"), bg="#dc3545", fg="white", width=10, command=self.exit_app)
         self.back_button.pack(side="left", padx=5)
