@@ -71,18 +71,17 @@ class WelcomePage:
 
     def exit_app(self):
         self.root.destroy()
-        
+
 class SecondPage:
     def __init__(self, root):
         self.root = root
         self.root.title("Second Page")
-        self.root.state("zoomed")
         self.resize_job = None
-        
+
         self.canvas = tk.Canvas(self.root, highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
 
-        self.original_image = Image.open("background.png")
+        self.original_image = Image.open("asset/background.png")
         self.bg_photo = None
         self.logo_photo = None
 
