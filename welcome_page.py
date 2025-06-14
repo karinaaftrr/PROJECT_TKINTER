@@ -26,6 +26,6 @@ def update_background(self):
         self.button_frame.destroy()
         self.root.unbind("<Configure>")
         SecondPage(self.root)
-
+            
     def exit_app(self):
         self.root.destroy()
