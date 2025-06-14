@@ -177,7 +177,7 @@ class ThirdPage:
         self.root.state("zoomed")
         self.destroyed = False
         self.resize_job = None
-
+        
         self.header_height = 120
         self.header_frame = tk.Frame(self.root, bg="black", height=self.header_height)
         self.header_frame.pack(side="top", fill="x")
@@ -241,6 +241,9 @@ class ThirdPage:
         self.setup_score_section_kanan(self.frame_kanan)
         self.frame_kiri.place(relx=0.12, rely=0.5, anchor="center")
         self.frame_kanan.place(relx=0.65, rely=0.5, anchor="center")
+
+        self.setup_function_buttons()
+        self.setup_timer_frames()
 
         self.button_frame = tk.Frame(self.root, bg="#06075C", bd=0)
         self.back_button = tk.Button(self.button_frame, text="BACK", font=("Segoe UI", 12, "bold"), bg="#767b21", fg="white", width=10, command=self.before_page)
