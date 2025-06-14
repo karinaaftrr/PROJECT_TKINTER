@@ -191,113 +191,6 @@ def update_background(self):
         self.root.destroy()()
         
 class ThirdPage:
-    def _init_(self, root):
-        self.root = root
-        self.root.title("Third Page")
-        self.root.state("zoomed")
-
-        self.canvas = tk.Canvas(self.root, highlightthickness=0)
-        self.canvas.pack(fill="both", expand=True)
-
-        self.original_image = Image.open("Bendera.png")
-        self.bg_photo = None
-        self.logo_photo = None
-
-        self.score_kanan = 0
-        self.score_kiri = 0
-
-        self.frame_kanan = tk.Frame(self.root, bg="#06075C")
-        self.frame_kiri = tk.Frame(self.root, bg="#FF0000")
-
-        self.setup_score_section_kanan(self.frame_kanan)
-        self.setup_score_section_kiri(self.frame_kiri)
-
-        self.frame_kanan.place(relx=0.6, rely=0.35, anchor="center")
-        self.frame_kiri.place(relx=0.15, rely=0.35, anchor="center")
-
-        self.button_frame = tk.Frame(self.root, bg="#06075C", bd=0)
-        self.back_button = tk.Button(
-            self.button_frame, text="BACK", font=("Segoe UI", 12, "bold"),
-            bg="#767b21", fg="white", width=10, command=self.before_page
-        )
-        self.exit_button = tk.Button(
-            self.button_frame, text="EXIT", font=("Segoe UI", 12, "bold"),
-            bg="#dc3545", fg="white", width=10, command=self.exit_app
-        )
-        self.back_button.pack(side="left", padx=5)
-        self.exit_button.pack(side="left", padx=5)
-
-        self.button_window = None
-        self.update_background()
-        self.root.bind("<Configure>", self.on_resize)
-
-    def setup_score_section_kanan(self, frame):
-        self.label_score_kanan = tk.Label(frame, text="0", font=("Helvetica", 20), fg="white", bg="#06075C")
-        self.label_score_kanan.pack(pady=10)
-
-        button_frame = tk.Frame(frame, bg="#06075C")
-        button_frame.pack(pady=10)
-
-        tk.Button(button_frame, text="+1", font=("Helvetica", 18, "bold"),
-                  bg="green", fg="white", width=4, height=2,
-                  command=self.increase_score_kanan).pack(side="left", padx=5)
-        tk.Button(button_frame, text="-1", font=("Helvetica", 18, "bold"),
-                  bg="blue", fg="white", width=4, height=2,
-                  command=self.decrease_score_kanan).pack(side="left", padx=5)
-    
-    def setup_score_section_kiri(self, frame):
-        self.label_score_kiri = tk.Label(frame, text="0", font=("Helvetica", 20), fg="white", bg="#FF0000")
-        self.label_score_kiri.pack(pady=10)
-
-        button_frame = tk.Frame(frame, bg="#FF0000")
-        button_frame.pack(pady=10)
-
-        tk.Button(button_frame, text="+1", font=("Helvetica", 18, "bold"),
-                  bg="green", fg="white", width=4, height=2,
-                  command=self.increase_score_kiri).pack(side="left", padx=5)
-        tk.Button(button_frame, text="-1", font=("Helvetica", 18, "bold"),
-                  bg="blue", fg="white", width=4, height=2,
-                  command=self.decrease_score_kiri).pack(side="left", padx=5)
-    def increase_score_kanan(self):
-        self.score_kanan += 1
-        self.label_score_kanan.config(text=str(self.score_kanan))
-
-    def decrease_score_kanan(self):
-        self.score_kanan = max(0, self.score_kanan - 1)
-        self.label_score_kanan.config(text=str(self.score_kanan))
-
-    def increase_score_kiri(self):
-        self.score_kiri += 1
-        self.label_score_kiri.config(text=str(self.score_kiri))
-
-    def decrease_score_kiri(self):
-        self.score_kiri = max(0, self.score_kiri - 1)
-        self.label_score_kiri.config(text=str(self.score_kiri))
-    def update_background(self):
-        w = self.root.winfo_width()
-        h = self.root.winfo_height()
-        if w > 1 and h > 1:
-            resized = self.original_image.resize((w, h), Image.LANCZOS)
-            self.bg_photo = ImageTk.PhotoImage(resized)
-            self.canvas.delete("all")
-            self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
-            self.button_window = self.canvas.create_window(w - 20, 20, window=self.button_frame, anchor="ne")
-
-    def on_resize(self, event):
-        self.update_background()
-
-    def before_page(self):
-        self.canvas.pack_forget()
-        self.button_frame.pack_forget()
-        self.frame_kanan.destroy()
-        self.frame_kiri.destroy()
-        self.root.unbind("<Configure>")
-        SecondPage(self.root) 
-
-    def exit_app(self):
-        self.root.destroy()
-
-class ThirdPage:
     def __init__(self, root):
         self.root = root
         self.root.title("Third Page")
@@ -452,8 +345,6 @@ def done(self):
         except Exception:
             pass
         SecondPage(self.root)
-
-
 
     def exit_app(self):
         self.is_running_kiri = False
