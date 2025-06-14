@@ -297,7 +297,99 @@ class ThirdPage:
     def exit_app(self):
         self.root.destroy()
         
-if __name__ == "__main__":
+def done(self):
+        self.is_running_kiri = False
+        self.is_running_kanan = False
+        ao_name = self.ao_entry.get().strip()
+        aka_name = self.aka_entry.get().strip()
+        division = self.division_var.get()
+        timer_kiri = f"{self.seconds_elapsed_kiri // 60:02d}:{self.seconds_elapsed_kiri % 60:02d}"
+        timer_kanan = f"{self.seconds_elapsed_kanan // 60:02d}:{self.seconds_elapsed_kanan % 60:02d}"
+
+        if ao_name and ao_name not in self.names:
+            self.names.append(ao_name)
+        if aka_name and aka_name not in self.names:
+            self.names.append(aka_name)
+        self.ao_dropdown['values'] = self.names
+        self.aka_dropdown['values'] = self.names
+        self.ao_dropdown_var.set(ao_name)
+        self.aka_dropdown_var.set(aka_name)
+
+        status_kiri = "Normal"
+        status_kanan = "Normal"
+        if self.status_kiri == "Shikkaku":
+            status_kiri = "Diskualifikasi"
+            status_kanan = "Menang"
+        elif self.status_kiri == "Kikken":
+            status_kiri = "Menyerah"
+            status_kanan = "Menang"
+        elif self.status_kanan == "Shikkaku":
+            status_kanan = "Diskualifikasi"
+            status_kiri = "Menang"
+        elif self.status_kanan == "Kikken":
+            status_kanan = "Menyerah"
+            status_kiri = "Menang"
+        elif self.score_kiri > self.score_kanan:
+            status_kiri = "Menang"
+            status_kanan = "Kalah"
+        elif self.score_kiri < self.score_kanan:
+            status_kiri = "Kalah"
+            status_kanan = "Menang"
+        else:
+            status_kiri = status_kanan = "Seri"
+
+        hasil = (
+            f"Division: {division} | "
+            f"{ao_name} ({status_kiri}, {timer_kiri}) vs "
+            f"{aka_name} ({status_kanan}, {timer_kanan})"
+        )
+        self.hasil_pertandingan.append(hasil)
+        with open("hasil_pertandingan.txt", "a", encoding="utf-8") as file:
+            file.write(hasil + "\n")
+
+    def update_background(self):
+        w = self.root.winfo_width()
+        h = self.root.winfo_height()
+        if w > 1 and h > 1:
+            resized = self.original_image.resize((w, h), Image.LANCZOS)
+            self.bg_photo = ImageTk.PhotoImage(resized)
+            self.canvas.delete("all")
+            self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
+            if self.button_frame:
+                self.button_window = self.canvas.create_window(w - 20, 20, window=self.button_frame, anchor="ne")
+
+    def on_resize(self, event):
+        if self.resize_job:
+            self.root.after_cancel(self.resize_job)
+        self.resize_job = self.root.after(100, self.update_background)
+
+    def before_page(self):
+        self.is_running_kiri = False
+        self.is_running_kanan = False
+        self.destroyed = True
+        self.root.unbind("<Configure>")
+        try:
+            self.header_frame.destroy()
+            self.canvas.destroy()
+            self.button_frame.destroy()
+            self.frame_kanan.destroy()
+            self.frame_kiri.destroy()
+            self.timer_frame_kiri.destroy()
+            self.timer_frame_kanan.destroy()
+            self.func_button_frame.destroy()
+        except Exception:
+            pass
+        SecondPage(self.root)
+
+
+
+    def exit_app(self):
+        self.is_running_kiri = False
+        self.is_running_kanan = False
+        self.destroyed = True
+        self.root.destroy()
+
+if _name_ == "_main_":
     root = tk.Tk()
     app = WelcomePage(root)
     root.mainloop()
