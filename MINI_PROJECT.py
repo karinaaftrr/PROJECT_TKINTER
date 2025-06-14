@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter as ttk
 from PIL import Image, ImageTk, ImageFile
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
