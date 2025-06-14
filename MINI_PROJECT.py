@@ -10,7 +10,7 @@ class WelcomePage:
         self.root = root
         self.root.title("Welcome Page")
         self.root.state("zoomed")
-        self.root.configure(bg="black")
+        self.resize_job = None
 
         self.canvas = tk.Canvas(self.root, highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
@@ -80,7 +80,9 @@ class WelcomePage:
             self.button_window = self.canvas.create_window(w - 20, 20, window=self.button_frame, anchor="ne")
 
     def on_resize(self, event):
-        self.update_background()
+        if self.resize_job:
+            self.root.after_cancel(self.resize_job)
+        self.resize_job = self.root.after(200, self.update_background)
 
     def next_page(self):
         self.canvas.pack_forget()
@@ -101,7 +103,9 @@ class SecondPage:
     def __init__(self, root):
         self.root = root
         self.root.title("Second Page")
-
+        self.root.state("zoomed")
+        self.resize_job = None
+        
         self.canvas = tk.Canvas(self.root, highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
 
@@ -175,7 +179,9 @@ def update_background(self):
             self.button_window = self.canvas.create_window(w - 20, 20, window=self.button_frame, anchor="ne")
 
     def on_resize(self, event):
-        self.update_background()
+        if self.resize_job:
+            self.root.after_cancel(self.resize_job)
+        self.resize_job = self.root.after(200, self.update_background)
 
     def next_page(self):
         self.canvas.pack_forget()
