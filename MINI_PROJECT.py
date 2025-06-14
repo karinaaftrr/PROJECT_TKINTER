@@ -335,8 +335,93 @@ class ThirdPage:
         self.timer_label_kanan = tk.Label(self.timer_frame_kanan, text="00:00", font=("Montserrat", 40, "bold"), fg="white", bg="#06075C")
         self.timer_label_kanan.pack(side="left", padx=10)
         self.timer_frame_kanan.place(relx=0.8, rely=0.8, anchor="center")
-        
-def done(self):
+
+    def start_both_timers(self):
+        if not self.status_kiri in ["Shikkaku", "Kikken"]:
+            if not self.is_running_kiri:
+                self.is_running_kiri = True
+                self.update_timer_kiri()
+        if not self.status_kanan in ["Shikkaku", "Kikken"]:
+            if not self.is_running_kanan:
+                self.is_running_kanan = True
+                self.update_timer_kanan()
+
+    def update_timer_kiri(self):
+        if self.is_running_kiri and not self.destroyed:
+            self.seconds_elapsed_kiri += 1
+            minutes = self.seconds_elapsed_kiri // 60
+            seconds = self.seconds_elapsed_kiri % 60
+            self.timer_label_kiri.config(text=f"{minutes:02d}:{seconds:02d}", fg="white", font=("Montserrat", 24, "bold"))
+            self.root.after(1000, self.update_timer_kiri)
+
+    def update_timer_kanan(self):
+        if self.is_running_kanan and not self.destroyed:
+            self.seconds_elapsed_kanan += 1
+            minutes = self.seconds_elapsed_kanan // 60
+            seconds = self.seconds_elapsed_kanan % 60
+            self.timer_label_kanan.config(text=f"{minutes:02d}:{seconds:02d}", fg="white")
+            self.root.after(1000, self.update_timer_kanan)
+
+    def toggle_timer_visibility(self):
+        self.timer_visible = not self.timer_visible
+        if self.timer_visible:
+            self.timer_frame_kiri.place(relx=0.3, rely=0.8, anchor="center")
+            self.timer_frame_kanan.place(relx=0.8, rely=0.8, anchor="center")
+        else:
+            self.timer_frame_kiri.place_forget()
+            self.timer_frame_kanan.place_forget()
+
+    def increase_score_kanan(self):
+        self.score_kanan += 1
+        self.label_score_kanan.config(text=str(self.score_kanan))
+
+    def decrease_score_kanan(self):
+        self.score_kanan = max(0, self.score_kanan - 1)
+        self.label_score_kanan.config(text=str(self.score_kanan))
+
+    def increase_score_kiri(self):
+        self.score_kiri += 1
+        self.label_score_kiri.config(text=str(self.score_kiri))
+
+    def decrease_score_kiri(self):
+        self.score_kiri = max(0, self.score_kiri - 1)
+        self.label_score_kiri.config(text=str(self.score_kiri))
+
+    def shikkaku_kiri(self):
+        self.status_kiri = "Shikkaku"
+        self.is_running_kiri = False
+        self.timer_label_kiri.config(text="DISKUALIFIKASI", fg="white")
+
+    def shikkaku_kanan(self):
+        self.status_kanan = "Shikkaku"
+        self.is_running_kanan = False
+        self.timer_label_kanan.config(text="DISKUALIFIKASI", fg="white")
+
+    def kikken_kiri(self):
+        self.status_kiri = "Kikken"
+        self.is_running_kiri = False
+        self.timer_label_kiri.config(text="MENYERAH", fg="white")
+
+    def kikken_kanan(self):
+        self.status_kanan = "Kikken"
+        self.is_running_kanan = False
+        self.timer_label_kanan.config(text="MENYERAH", fg="white")
+
+    def reset_scores(self):
+        self.score_kanan = 0
+        self.score_kiri = 0
+        self.label_score_kanan.config(text="0")
+        self.label_score_kiri.config(text="0")
+        self.seconds_elapsed_kiri = 0
+        self.seconds_elapsed_kanan = 0
+        self.timer_label_kiri.config(text="00:00", fg="white")
+        self.timer_label_kanan.config(text="00:00", fg="white")
+        self.is_running_kiri = False
+        self.is_running_kanan = False
+        self.status_kiri = ""
+        self.status_kanan = ""
+
+    def done(self):
         self.is_running_kiri = False
         self.is_running_kanan = False
         ao_name = self.ao_entry.get().strip()
