@@ -33,7 +33,7 @@ class WelcomePage:
         self.update_background()
         self.root.bind("<Configure>", self.on_resize)
 
-    def update_background(self):
+   def update_background(self):
         w = self.root.winfo_width()
         h = self.root.winfo_height()
 
@@ -43,13 +43,37 @@ class WelcomePage:
             self.canvas.delete("all")
             self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
 
-            logo_image = Image.open("Logo_Unila.png").resize((200, 150), Image.LANCZOS)
+            logo_image = Image.open("asset/Logo_Unila.png").resize((200, 150), Image.LANCZOS)
             self.logo_photo = ImageTk.PhotoImage(logo_image)
             self.canvas.create_image(10, 10, image=self.logo_photo, anchor="nw")
 
-            text = " ".join("WELCOME TO OUR PROJECT")
-            font_style = ("Georgia", 44, "bold")
-            self.canvas.create_text(w * 0.5, h * 0.45, text=text, font=font_style, fill="white", anchor="center")
+            rama_image = Image.open("asset/rama.png").resize((100,150), Image.LANCZOS)
+            self.rama_photo = ImageTk.PhotoImage(rama_image) 
+            self.canvas.create_image(350, 230, image=self.rama_photo, anchor="nw")
+            self.canvas.create_text(400, 400, text="Rama Praditha R.\n2417051039", font=("Segoe UI", 10, "bold"), fill="white", anchor="n")
+
+            reggy_image = Image.open("asset/reggy.png").resize((100,150), Image.LANCZOS)
+            self.reggy_photo = ImageTk.PhotoImage(reggy_image) 
+            self.canvas.create_image(540, 230, image=self.reggy_photo, anchor="nw")
+            self.canvas.create_text(600, 400, text="Reggy Desvita Kamal\n2417051016", font=("Segoe UI", 10, "bold"), fill="white", anchor="n")
+
+            karina_image = Image.open("asset/karina.png").resize((100,150), Image.LANCZOS)
+            self.karina_photo = ImageTk.PhotoImage(karina_image) 
+            self.canvas.create_image(720, 230, image=self.karina_photo, anchor="nw")
+            self.canvas.create_text(770, 400, text="Karina Fitriamalia\n2417051014", font=("Segoe UI", 10, "bold"), fill="white", anchor="n")
+
+            ikbal_image = Image.open("asset/ikbal.png").resize((100,150), Image.LANCZOS)
+            self.ikbal_photo = ImageTk.PhotoImage(ikbal_image) 
+            self.canvas.create_image(900, 230, image=self.ikbal_photo, anchor="nw")
+            self.canvas.create_text(950, 400, text="Ikbal Feri Amanda\n2417051031", font=("Segoe UI", 10, "bold"), fill="white", anchor="n")
+
+            text = " ".join("Our Team!")
+            font_style = ("Impact", 44, "bold")
+            self.canvas.create_text(w * 0.5, h * 0.15, text=text, font=font_style, fill="white", anchor="center")
+
+            text = "KELOMPOK 6"
+            font_style = ("Comic Sans MS", 22, "bold")
+            self.canvas.create_text(w * 0.5, h * 0.25, text=text, font=font_style, fill="white", anchor="center")
 
             self.button_window = self.canvas.create_window(w - 20, 20, window=self.button_frame, anchor="ne")
 
@@ -60,7 +84,13 @@ class WelcomePage:
         self.canvas.pack_forget()
         self.button_frame.pack_forget()
         self.root.unbind("<Configure>")
-        SecondPage(self.root)
+        ThirdPage(self.root)
+    
+    def before_page(self):
+        self.canvas.pack_forget()
+        self.button_frame.pack_forget()
+        self.root.unbind("<Configure>")
+        WelcomePage(self.root)
 
     def exit_app(self):
         self.root.destroy()
