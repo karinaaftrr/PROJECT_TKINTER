@@ -97,7 +97,7 @@ class SecondPage:
         self.button_window = None
         self.update_background()
         self.root.bind("<Configure>", self.on_resize)
-        
+
     def update_background(self):
         w = self.root.winfo_width()
         h = self.root.winfo_height()
@@ -112,7 +112,7 @@ class SecondPage:
             self.logo_photo = ImageTk.PhotoImage(logo_image)
             self.canvas.create_image(10, 10, image=self.logo_photo, anchor="nw")
 
-            rama_image = Image.open("rama praditha.jpg").resize((100,150), Image.LANCZOS)
+            rama_image = Image.open("rama.jpg").resize((100,150), Image.LANCZOS)
             self.rama_photo = ImageTk.PhotoImage(rama_image) 
             self.canvas.create_image(350, 230, image=self.rama_photo, anchor="nw")
             self.canvas.create_text(400, 400, text="Rama Praditha R.\n2417051039", font=("Segoe UI", 10, "bold"), fill="white", anchor="n")
@@ -141,6 +141,7 @@ class SecondPage:
             self.canvas.create_text(w * 0.5, h * 0.25, text=text, font=font_style, fill="white", anchor="center")
 
             self.button_window = self.canvas.create_window(w - 20, 20, window=self.button_frame, anchor="ne")
+
     def on_resize(self, event):
         self.update_background()
 
@@ -148,7 +149,7 @@ class SecondPage:
         self.canvas.pack_forget()
         self.button_frame.pack_forget()
         self.root.unbind("<Configure>")
-        print("Next page belum dibuat.")
+        ThirdPage(self.root)
     
     def before_page(self):
         self.canvas.pack_forget()
